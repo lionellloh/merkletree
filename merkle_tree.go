@@ -214,6 +214,11 @@ func (m *MerkleTree) MerkleRoot() []byte {
 	return m.merkleRoot
 }
 
+//MerkleRootNode returns the ptr to the unverified Merkle Root Node of the tree.
+func (m *MerkleTree) MerkleRootNode() *Node {
+	return m.Root
+}
+
 //RebuildTree is a helper function that will rebuild the tree reusing only the content that
 //it holds in the leaves.
 func (m *MerkleTree) RebuildTree() error {
@@ -297,6 +302,12 @@ func (m *MerkleTree) VerifyContent(content Content) (bool, error) {
 	return false, nil
 }
 
+
+func (n *Node) IsLeaf() bool {
+	return n.leaf
+}
+
+
 //String returns a string representation of the node.
 func (n *Node) String() string {
 	return fmt.Sprintf("%t %t %v %s", n.leaf, n.dup, n.Hash, n.C)
@@ -312,3 +323,6 @@ func (m *MerkleTree) String() string {
 	}
 	return s
 }
+
+//TODO: include a length function
+
